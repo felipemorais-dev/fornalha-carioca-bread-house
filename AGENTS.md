@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project structure
+- Keep the portfolio experience in the index route with native section anchors because this is an explicitly single-page website.
+- Keep menu amounts and demonstration-only contact behavior in a browser-safe data module with concrete rule tests so presentation changes cannot alter those constraints silently.
+- Use generated original photographs through CDN asset pointers to keep the page lightweight and independent of real restaurant imagery.
