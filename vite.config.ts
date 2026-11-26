@@ -9,10 +9,20 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// `NETLIFY_STATIC_EXPORT=1` (set by `bun run export:netlify`) builds a plain,
+// self-contained folder for hosts that only take static files, such as a
+// Netlify drag & drop deploy. The normal Lovable build is untouched.
+const staticExport = process.env.NETLIFY_STATIC_EXPORT === "1";
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // The static export (see scripts/export-netlify.mjs) builds a Node server it
+  // can render the page from, then ships only the rendered HTML and the files.
+  ...(staticExport
+    ? { nitro: { preset: process.env.NETLIFY_NITRO_PRESET ?? "node-server" } }
+    : {}),
 });
